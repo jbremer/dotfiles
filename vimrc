@@ -32,7 +32,7 @@ set fileformats="unix,dos,mac"
 set cc=80               " colorcolumn 80
 
 " clear out search result highlights
-nnoremap <leader><space> :noh<CR>
+nnoremap <space> :noh<CR>
 
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim
 nnoremap / /\v
@@ -62,9 +62,6 @@ nnoremap ; :
 
 map! <F1> <ESC>         " we dont want to accidently press F1
 
-" p = paste
-vnoremap p <ESC>:let current_reg=@"<CR>gvdi<C-r>=current_reg<CR><ESC>
-
 nnoremap <leader>w <C-w>v<C-w>l " duplicate the current window
 
 nmap Y y$           " yank to the end of the line
@@ -82,7 +79,12 @@ au BufWrite *.* :%retab
 au BufWrite *.* :%s/\s\+$//e
 
 " set a decent colorscheme
-colorscheme delek
+colorscheme asu1dark
 
 " don't go to the beginning of the line when inserting a hash (#) token
 inoremap # X<C-H>#
+
+" enable syntax highlighting
+syntax on
+
+call pathogen#infect()
