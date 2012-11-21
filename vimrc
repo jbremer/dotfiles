@@ -108,3 +108,13 @@ filetype plugin indent on
 
 " list all available files in the current directory for editing
 map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
+
+if has("gui_win32")
+    set guioptions -=m  " remove menu bar
+    set guioptions -=T  " remove toolbar
+    set guioptions -=r  " remove right-hand scroll bar
+    set guioptions -=R  " remove right-hand scroll bar
+    set guioptions -=l  " remove left-hand scroll bar
+    set guioptions -=L  " remove left-hand scroll bar
+    set guioptions -=b  " remove bottom scroll bar
+endif
