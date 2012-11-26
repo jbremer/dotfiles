@@ -85,6 +85,9 @@ colorscheme asu1dark
 " don't go to the beginning of the line when inserting a hash (#) token
 inoremap # X<C-H>#
 
+" full go support
+set rtp+=C:/Go/misc/vim
+
 " enable syntax highlighting
 syntax on
 
