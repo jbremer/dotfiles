@@ -27,7 +27,8 @@ set gdefault            " search/replace 'globally' (on a line) by
 set nolist              " dont show invisible characters by default
 set pastetoggle=<F2>    " toggle paste mode
 set mouse=a             " enable the mouse, if terminal supports that
-set fileformats="unix,dos,mac"
+set fileformat=unix
+set fileformats=unix,dos,mac
 
 set cc=80               " colorcolumn 80
 
