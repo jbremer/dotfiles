@@ -74,10 +74,10 @@ nmap <leader>p "+p
 nmap <leader>P "+pp
 
 " automatically convert all tabs to (four) whitespaces
-au BufWrite *.* :%retab
+au BufWrite * :%retab
 
 " automatically remove all trailing whitespaces
-au BufWrite *.* :%s/\s\+$//e
+au BufWrite * :%s/\s\+$//e
 
 " set a decent colorscheme
 colorscheme asu1dark
