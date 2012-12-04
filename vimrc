@@ -70,6 +70,8 @@ nmap Y y$           " yank to the end of the line
 " yank/paste to/from the OS clipboard with ,y and ,p
 nmap <leader>y "+y
 nmap <leader>Y "+yy
+vmap <leader>y "+y
+vmap <leader>Y "+yy
 nmap <leader>p "+p
 nmap <leader>P "+pp
 
