@@ -92,6 +92,9 @@ if has("gui_win32")
     set rtp+=C:/Go/misc/vim
 endif
 
+" pydoc path for python_pydoc.vim
+let g:pydoc_cmd = 'python -m pydoc'
+
 " enable syntax highlighting
 syntax on
 
