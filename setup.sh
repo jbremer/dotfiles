@@ -1,9 +1,18 @@
-ln -s $PWD/tmux-conf ~/.tmux.conf
-ln -s $PWD/vimrc ~/.vimrc
-ln -s $PWD/bash-aliases ~/.bash_aliases
 
 if [ "$OS" == "Windows_NT" ]; then
-    cp -rf $PWD/vimfiles ~
+    alias _assign_file='cp -rf'
 else
-    ln -s $PWD/vimfiles ~/.vim
+    alias _assign_file='ln -s'
 fi
+
+_assign_file $PWD/tmux-conf ~/.tmux.conf
+_assign_file $PWD/vimrc ~/.vimrc
+_assign_file $PWD/bash-aliases ~/.bash_aliases
+
+if [ "$OS" == "Windows_NT" ]; then
+    _assign_file $PWD/vimfiles ~
+else
+    _assign_file $PWD/vimfiles ~/.vim
+fi
+
+unalias _assign_file
