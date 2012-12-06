@@ -88,7 +88,9 @@ colorscheme asu1dark
 inoremap # X<C-H>#
 
 " full go support
-set rtp+=C:/Go/misc/vim
+if has("gui_win32")
+    set rtp+=C:/Go/misc/vim
+endif
 
 " enable syntax highlighting
 syntax on
