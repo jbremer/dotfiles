@@ -13,22 +13,33 @@ alias amke=make
 alias amek=make
 
 # git shortcuts
-alias cac='git diff --cached | less'
 alias ga='git add'
 alias gap='git add -p'
 alias gc='git commit'
 alias gcam='gc -am'
 alias gch='git checkout'
 alias gcm='gc -m'
-alias gd='git diff | less'
-alias gl='git log | less'
 alias gmt='git mergetool'
-alias gsh='git show | less'
-alias gst='git status | less'
 alias sps='git stash && git pull -r && git stash pop'
 alias grh='git reset HEAD'
 alias gpl='git pull'
 alias gps='git push'
+
+# under linux we don't want to add |less to the commands, as this happens
+# by default
+if [ "$OS" == "Windows_NT" ]; then
+    alias cac='git diff --cached | less'
+    alias gd='git diff | less'
+    alias gl='git log | less'
+    alias gsh='git show | less'
+    alias gst='git status | less'
+else
+    alias cac='git diff --cached'
+    alias gd='git diff'
+    alias gl='git log'
+    alias gsh='git show'
+    alias gst='git status'
+fi
 
 if [ "$OS" == "Windows_NT" ]; then
     alias vim=gvim
