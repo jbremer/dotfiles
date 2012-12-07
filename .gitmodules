@@ -13,3 +13,6 @@
 [submodule "vimfiles/bundle/snipMate.vim"]
 	path = vimfiles/bundle/snipMate.vim
 	url = https://github.com/msanders/snipmate.vim
+[submodule "vimfiles/bundle/indentpython.vim"]
+	path = vimfiles/bundle/indentpython.vim
+	url = https://github.com/vim-scripts/indentpython.vim
