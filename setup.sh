@@ -15,6 +15,11 @@ fi
 echo '[+] dropping .vimrc'
 _assign_file "$PWD/vimrc" ~/.vimrc
 
+if [ ! -f ~/.bashrc ]; then
+    echo '[+] no .bashrc found, dropping one now'
+    _assign_file "$PWD/bashrc" ~/.bashrc
+fi
+
 echo '[+] dropping .bash_aliases'
 _assign_file "$PWD/bash-aliases" ~/.bash_aliases
 
@@ -23,9 +28,13 @@ mkdir -p "$PWD/vimfiles/autoload" "$PWD/vimfiles/bundle"
 curl -Sso "$PWD/vimfiles/autoload/pathogen.vim" \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
-echo '[x] downloading and initializing all git submodules'
+echo '[x] initializing all git submodules'
 git submodule init
+
+echo '[x] cloning all git submodules'
 git submodule update
+
+echo '[x] initializing all git submodules'
 git submodule foreach git submodule init
 git submodule foreach git submodule update
 
