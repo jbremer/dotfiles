@@ -33,10 +33,6 @@ git submodule init
 echo '[x] cloning all git submodules'
 git submodule update
 
-echo '[x] initializing all git submodules'
-git submodule foreach git submodule init
-git submodule foreach git submodule update
-
 echo '[x] dropping all vimfiles'
 
 if [ "$OS" == "Windows_NT" ]; then
