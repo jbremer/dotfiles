@@ -21,11 +21,13 @@ mkdir -p $PWD/vimfiles/autoload $PWD/vimfiles/bundle
 curl -Sso $PWD/vimfiles/autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 
-# python_match.vim
-git clone https://github.com/vim-scripts/python_match.vim $PWD/vimfiles/bundle
+echo '[x] downloading all git repositories'
+git submodule init
+git submodule update
+git submodule foreach submodule init
+git submodule foreach submodule update
 
-# python_pydoc.vim
-git clone https://github.com/fs111/pydoc.vim $PWD/vimfiles/bundle
+echo '[x] dropping all vimfiles'
 
 if [ "$OS" == "Windows_NT" ]; then
     _assign_file $PWD/vimfiles ~

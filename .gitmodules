@@ -1,18 +1,18 @@
 [submodule "vimfiles/bundle/python_match.vim"]
-	path = vimfiles/bundle/python_match.vim
-	url = https://github.com/vim-scripts/python_match.vim
+    path = vimfiles/bundle/python_match.vim
+    url = https://github.com/vim-scripts/python_match.vim
 [submodule "vimfiles/bundle/python_pydoc.vim"]
-	path = vimfiles/bundle/python_pydoc.vim
-	url = https://github.com/fs111/pydoc.vim
+    path = vimfiles/bundle/python_pydoc.vim
+    url = https://github.com/fs111/pydoc.vim
 [submodule "vimfiles/bundle/vim-surround"]
-	path = vimfiles/bundle/vim-surround
-	url = https://github.com/tpope/vim-surround
+    path = vimfiles/bundle/vim-surround
+    url = https://github.com/tpope/vim-surround
 [submodule "vimfiles/bundle/vim-repeat"]
-	path = vimfiles/bundle/vim-repeat
-	url = https://github.com/tpope/vim-repeat
+    path = vimfiles/bundle/vim-repeat
+    url = https://github.com/tpope/vim-repeat
 [submodule "vimfiles/bundle/snipMate.vim"]
-	path = vimfiles/bundle/snipMate.vim
-	url = https://github.com/msanders/snipmate.vim
+    path = vimfiles/bundle/snipMate.vim
+    url = https://github.com/msanders/snipmate.vim
 [submodule "vimfiles/bundle/indentpython.vim"]
-	path = vimfiles/bundle/indentpython.vim
-	url = https://github.com/vim-scripts/indentpython.vim
+    path = vimfiles/bundle/indentpython.vim
+    url = https://github.com/vim-scripts/indentpython.vim--nianyang
