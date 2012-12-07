@@ -1,17 +1,22 @@
 
 if [ "$OS" == "Windows_NT" ]; then
     alias _assign_file='cp -rf'
-    echo Windows detected
+    echo '[x] Windows detected'
 else
     alias _assign_file='ln -s'
-    echo Linux detected
+    echo '[x] Linux detected'
+
+    echo '[+] dropping .tmux.conf'
+    _assign_file $PWD/tmux-conf ~/.tmux.conf
 fi
 
-_assign_file $PWD/tmux-conf ~/.tmux.conf
+echo '[+] dropping .vimrc'
 _assign_file $PWD/vimrc ~/.vimrc
+
+echo '[+] dropping .bash_aliases'
 _assign_file $PWD/bash-aliases ~/.bash_aliases
 
-# vim-pathogen
+echo '[+] installing vim-pathogen'
 mkdir -p $PWD/vimfiles/autoload $PWD/vimfiles/bundle
 curl -Sso $PWD/vimfiles/autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
@@ -29,3 +34,5 @@ else
 fi
 
 unalias _assign_file
+
+echo '[x] initialized successfully'
