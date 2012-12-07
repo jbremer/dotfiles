@@ -134,3 +134,10 @@ function! s:QuickfixToggle()
         let g:quickfix_is_open = 1
     endif
 endfunction
+
+" ,q quickly quits the current buffer / window
+nnoremap <leader>q :q<CR>
+
+" go from insert mode to normal mode using jj or jk
+inoremap jj <Esc>
+inoremap jk <Esc>
