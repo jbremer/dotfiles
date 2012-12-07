@@ -24,8 +24,8 @@ curl -Sso $PWD/vimfiles/autoload/pathogen.vim \
 echo '[x] downloading all git repositories'
 git submodule init
 git submodule update
-git submodule foreach submodule init
-git submodule foreach submodule update
+git submodule foreach git submodule init
+git submodule foreach git submodule update
 
 echo '[x] dropping all vimfiles'
 
