@@ -52,5 +52,8 @@ if [ "$OS" == "Windows_NT" ]; then
     6p() { curl -s -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
         -o /dev/null https://p.6core.net/ | putclip ; getclip ; }
 
-    cd /d/Git
+    # if /d/Git exists, then assume it's our default directory
+    if [ -d /d/Git ]; then
+        cd /d/Git
+    fi
 fi
