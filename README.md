@@ -6,8 +6,5 @@ Dotfiles.
 Installation
 ============
 
-Download Syntastic
-http://www.vim.org/scripts/script.php?script\_id=386
-http://www.vim.org/scripts/script.php?script\_id=974
-
-...
+Run `setup.sh` and wait for it to finish. It will setup everything accordingly
+whether you're running Linux or Windows.

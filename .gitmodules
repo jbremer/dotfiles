@@ -16,3 +16,6 @@
 [submodule "vimfiles/bundle/indentpython.vim"]
     path = vimfiles/bundle/indentpython.vim
     url = https://github.com/vim-scripts/indentpython.vim--nianyang
+[submodule "vimfiles/bundle/syntastic"]
+	path = vimfiles/bundle/syntastic
+	url = https://github.com/scrooloose/syntastic
