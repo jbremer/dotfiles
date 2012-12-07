@@ -1,5 +1,16 @@
 set nocompatible        " We dont support Vi compatibility
 
+" force reloading after pathogen has loaded
+filetype off
+call pathogen#infect()
+call pathogen#helptags()
+
+" enable indentation
+filetype plugin indent on
+
+" enable syntax highlighting
+syntax on
+
 let mapleader=","       " change mapleader
 
 set showmode            " show which mode we are currently in
@@ -88,34 +99,12 @@ colorscheme asu1dark
 inoremap # X<C-H>#
 
 " full go support
-if has("gui_win32")
+if has("win32")
     set rtp+=C:/Go/misc/vim
 endif
 
 " pydoc path for python_pydoc.vim
 let g:pydoc_cmd = 'python -m pydoc'
-
-" enable syntax highlighting
-syntax on
-
-call pathogen#infect()
-
-function! CleverTab()
-  if pumvisible()
-    return "\<C-N>"
-  endif
-  if strpart( getline('.'), 0, col('.')-1 ) =~ '^\s*$'
-    return "\<Tab>"
-  elseif exists('&omnifunc') && &omnifunc != ''
-    return "\<C-X>\<C-O>"
-  else
-    return "\<C-N>"
-  endif
-endfunction
-inoremap <Tab> <C-R>=CleverTab()<CR>
-
-" enable correct indentation
-filetype plugin indent on
 
 " list all available files in the current directory for editing
 map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
