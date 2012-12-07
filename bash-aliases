@@ -42,10 +42,11 @@ else
 fi
 
 if [ "$OS" == "Windows_NT" ]; then
-    alias vim=gvim
+    # default installation paths
+    alias vim="'$PROGRAMFILES/Vim/vim73/gvim.exe'"
     alias py26='/c/Python26/python.exe'
-    alias putty='/c/ProgFiles86/putty.exe'
-    alias telnet='/c/ProgFiles86/putty.exe -telnet'
+    alias putty="'$PROGRAMFILES/putty.exe'"
+    alias telnet='putty -telnet'
     alias tig='/c/cygwin/bin/tig.exe'
 
     6p() { curl -s -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
