@@ -42,11 +42,8 @@ fi
 
 echo '[x] building flake8'
 cd flake8
-$python setup.py build
+$python setup.py install --user
 cd ..
-
-# build path of flake8
-echo pathadd \"$PWD/flake8/build/scripts-2.7\" >> ~/.bash_aliases_auto
 
 echo '[x] dropping all vimfiles'
 
