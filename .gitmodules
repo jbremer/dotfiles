@@ -19,3 +19,6 @@
 [submodule "vimfiles/bundle/syntastic"]
 	path = vimfiles/bundle/syntastic
 	url = https://github.com/scrooloose/syntastic
+[submodule "flake8"]
+	path = flake8
+	url = https://github.com/bmcustodio/flake8

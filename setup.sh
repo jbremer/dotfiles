@@ -33,6 +33,21 @@ git submodule init
 echo '[x] cloning all git submodules'
 git submodule update
 
+# try to locate python binary
+if [ "$OS" == "Windows_NT" ]; then
+    python=/c/python27/python.exe
+else
+    python=/usr/bin/python
+fi
+
+echo '[x] building flake8'
+cd flake8
+$python setup.py build
+cd ..
+
+# build path of flake8
+echo pathadd \"$PWD/flake8/build/scripts-2.7\" >> ~/.bash_aliases_auto
+
 echo '[x] dropping all vimfiles'
 
 if [ "$OS" == "Windows_NT" ]; then
