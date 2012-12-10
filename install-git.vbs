@@ -35,35 +35,17 @@ Function DownloadFile(FileName, Url)
 End Function
 
 ' http://customerfx.com/pages/crmdeveloper/2004/02/10/how-to-execute-a-file-program-in-vbscript.aspx
-Sub Run(ByVal sFile)
+Sub Run(sFile, sParam)
     dim shell
     set shell = CreateObject("WScript.Shell")
-    shell.Run Chr(34) & sFile & Chr(34), 1, false
+    shell.Run Chr(34) & sFile & Chr(34) & Chr(32) & sParam, 1, True
 End Sub
-
-' http://stackoverflow.com/questions/3641163/wait-for-program-to-complete
-Function ExecuteWait(FileName)
-    ' execute the file
-    Run FileName
-
-    set oWMI = GetObject("winmgmts:\\.\root\cimv2")
-
-    ' create an event query to be notified within one second when
-    ' the process has finished
-    set colEvents = oWMI.ExecNotificationQuery _
-        ("SELECT * FROM __InstanceDeletionEvent WITHIN 1 " _
-        & "WHERE TargetInstance ISA 'Win32_Process' " _
-        & "AND TargetInstance.Name = '" & FileName &  "'")
-
-    ' wait until the process has finished
-    set oEvent = colEvents.NextEvent
-End Function
 
 WScript.StdOut.Write "[x] Downloading Git" & Chr(10)
 DownloadFile "_git.exe", _
     "http://msysgit.googlecode.com/files/Git-1.8.0-preview20121022.exe"
 
 WScript.StdOut.Write "[x] Installing Git" & Chr(10)
-ExecuteWait "_git.exe /verysilent"
+Run "_git.exe", "/verysilent"
 
 WScript.StdOut.Write "[+] Installed Git" & Chr(10)
