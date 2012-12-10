@@ -141,3 +141,7 @@ nnoremap <leader>q :q<CR>
 " go from insert mode to normal mode using jj or jk
 inoremap jj <Esc>
 inoremap jk <Esc>
+
+" visual mode shift without loosing selection
+vmap < <gv
+vmap > >gv
