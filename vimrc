@@ -145,3 +145,6 @@ inoremap jk <Esc>
 " visual mode shift without loosing selection
 vmap < <gv
 vmap > >gv
+
+" set the leader key for splice.vim as comma
+let g:splice_prefix = ","

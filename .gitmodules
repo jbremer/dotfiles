@@ -22,3 +22,6 @@
 [submodule "flake8"]
 	path = flake8
 	url = https://github.com/bmcustodio/flake8
+[submodule "vimfiles/bundle/splice.vim"]
+	path = vimfiles/bundle/splice.vim
+	url = https://github.com/sjl/splice.vim.git

@@ -1,10 +1,12 @@
 if [ "$OS" == "Windows_NT" ]; then
     assign_dir='cp -rf'
     assign_file='cp -f'
+    vim=gvim
     echo '[x] Windows detected'
 else
     assign_dir='ln -s'
     assign_file='ln -s'
+    vim=vim
     echo '[x] Linux detected'
 
     echo '[+] dropping .tmux.conf'
@@ -32,6 +34,12 @@ git submodule init
 
 echo '[x] cloning all git submodules'
 git submodule update
+
+echo '[x] setting mergetool up'
+git config --global merge.tool splice
+git config --global mergetool.splice.cmd \
+    $vim' -f $BASE $LOCAL $REMOTE $MERGED -c SpliceInit'
+git config --global mergetool.splice.trustExitCode true
 
 # try to locate python binary
 if [ "$OS" == "Windows_NT" ]; then
