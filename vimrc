@@ -138,9 +138,9 @@ endfunction
 " ,q quickly quits the current buffer / window
 nnoremap <leader>q :q<CR>
 
-" go from insert mode to normal mode using jj or jk
+" go from insert mode to normal mode using jj or kk
 inoremap jj <Esc>
-inoremap jk <Esc>
+inoremap kk <Esc>
 
 " visual mode shift without loosing selection
 vmap < <gv
