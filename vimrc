@@ -148,3 +148,11 @@ vmap > >gv
 
 " set the leader key for splice.vim as comma
 let g:splice_prefix = ","
+
+" <leader>t toggles between .h and .c file, shortcut for a.vim
+" o for open in current window
+" s for open in new split
+" v for open in new vsplit
+nmap <leader>to :A<CR>
+nmap <leader>ts :AS<CR>
+nmap <leader>tv :AV<CR>
