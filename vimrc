@@ -136,7 +136,9 @@ function! s:QuickfixToggle()
 endfunction
 
 " ,q quickly quits the current buffer / window
+" ,Q quickly quits the current possibly unsaved buffer / window
 nnoremap <leader>q :q<CR>
+nnoremap <leader>Q :q!<CR>
 
 " go from insert mode to normal mode using jj or kk
 inoremap jj <Esc>
