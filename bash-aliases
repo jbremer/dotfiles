@@ -1,6 +1,7 @@
 alias py=python
 alias ll='ls -alF'
 alias box='ssh skier@box.haxx.in'
+alias box2='ssh skier@nala.villavu.com -p54322'
 alias ls='ls --color=always'
 alias rvim='vim -R -'
 alias ..='cd ..'
