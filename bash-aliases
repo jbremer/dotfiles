@@ -12,6 +12,7 @@ alias maek=make
 alias mkae=make
 alias amke=make
 alias amek=make
+alias mc='make clean'
 
 # git shortcuts
 alias ga='git add'
