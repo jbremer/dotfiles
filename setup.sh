@@ -36,6 +36,12 @@ echo '[x] cloning all git submodules'
 git submodule update
 
 echo '[x] setting mergetool up'
+git config --global user.name 'Jurriaan Bremer'
+git config --global user.email 'jurriaanbremer@gmail.com'
+git config --global color.status always
+git config --global color.branch always
+git config --global color.ui always
+git config --global color.diff always
 git config --global merge.tool splice
 git config --global mergetool.splice.cmd \
     $vim' -f $BASE $LOCAL $REMOTE $MERGED -c SpliceInit'
