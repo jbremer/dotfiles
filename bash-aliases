@@ -12,6 +12,9 @@ alias maek=make
 alias mkae=make
 alias amke=make
 alias amek=make
+
+alias mk=make
+alias mkc='make -C'
 alias mc='make clean'
 
 # git shortcuts
