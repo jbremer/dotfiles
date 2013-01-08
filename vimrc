@@ -5,6 +5,12 @@ set nocompatible        " We dont support Vi compatibility
 let g:syntastic_python_checker = 'flake8'
 let g:syntastic_python_flake8_exe = 'python -m flake8.run'
 
+" set the leader key for splice.vim as comma
+let g:splice_leader = ","
+
+" pydoc path for python_pydoc.vim
+let g:pydoc_cmd = 'python -m pydoc'
+
 " force reloading after pathogen has loaded
 filetype off
 call pathogen#infect()
@@ -108,9 +114,6 @@ if has("win32")
     set rtp+=C:/Go/misc/vim
 endif
 
-" pydoc path for python_pydoc.vim
-let g:pydoc_cmd = 'python -m pydoc'
-
 " list all available files in the current directory for editing
 map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
 
@@ -152,9 +155,6 @@ inoremap kk <Esc>
 " visual mode shift without loosing selection
 vmap < <gv
 vmap > >gv
-
-" set the leader key for splice.vim as comma
-let g:splice_prefix = ","
 
 " <leader>t toggles between .h and .c file, shortcut for a.vim
 " o for open in current window
