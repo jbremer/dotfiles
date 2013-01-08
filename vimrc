@@ -1,5 +1,10 @@
 set nocompatible        " We dont support Vi compatibility
 
+" ensure the flake8 module is used and it is being ran without having to
+" update the $PATH with anything special
+let g:syntastic_python_checker = 'flake8'
+let g:syntastic_python_flake8_exe = 'python -m flake8.run'
+
 " force reloading after pathogen has loaded
 filetype off
 call pathogen#infect()
