@@ -160,6 +160,14 @@ vmap > >gv
 " o for open in current window
 " s for open in new split
 " v for open in new vsplit
+" split with the html representation of this buffer
 nmap <leader>to :A<CR>
 nmap <leader>ts :AS<CR>
 nmap <leader>tv :AV<CR>
+nmap <leader>th :TOhtml<CR>
+
+" <leader>m opens the Makefile in a split
+nmap <leader>m :sp Makefile<CR>
+
+nnoremap <F5> :w<CR>:silent !make<CR>
+inoremap <F5> <ESC>:w<CR>:silent !make<CR>
