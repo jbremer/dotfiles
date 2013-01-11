@@ -109,11 +109,6 @@ colorscheme asu1dark
 " don't go to the beginning of the line when inserting a hash (#) token
 inoremap # X<C-H>#
 
-" full go support
-if has("win32")
-    set rtp+=C:/Go/misc/vim
-endif
-
 " list all available files in the current directory for editing
 map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
 
