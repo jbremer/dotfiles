@@ -16,6 +16,11 @@ fi
 echo '[+] dropping .vimrc'
 $assign_file "$PWD/vimrc" ~/.vimrc
 
+# vim on windows vista appears to include ~/_vimrc for an unknown reason
+if [ "$OS" == "Windows_NT" ]; then
+    $assign_file "$PWD/vimrc" ~/_vimrc
+fi
+
 if [ ! -f ~/.bashrc ]; then
     echo '[+] no .bashrc found, dropping one now'
     $assign_file "$PWD/bashrc" ~/.bashrc
