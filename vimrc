@@ -143,9 +143,8 @@ endfunction
 nnoremap <leader>q :q<CR>
 nnoremap <leader>Q :q!<CR>
 
-" go from insert mode to normal mode using jj or kk
+" go from insert mode to normal mode using jj
 inoremap jj <Esc>
-inoremap kk <Esc>
 
 " visual mode shift without loosing selection
 vmap < <gv
