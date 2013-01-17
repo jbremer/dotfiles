@@ -78,7 +78,9 @@ set wildignore=*.pyc,*.class    " blacklisted file extensions
 set visualbell          " dont beep
 set noerrorbells        " dont beep
 
-" set cursorline        " underline the current line
+" make the current line bold
+set cursorline
+highlight CursorLine cterm=bold
 
 " remap ';' to ':' for more awesomeness!
 nnoremap ; :
