@@ -7,6 +7,7 @@ alias rvim='vim -R -'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
+alias tmp='cd /tmp'
 
 alias maek=make
 alias mkae=make
@@ -32,10 +33,13 @@ alias sps='git stash && git pull -r && git stash pop'
 alias grh='git reset HEAD'
 alias gpl='git pull'
 alias gplo='git pull origin'
+alias gplom='git pull origin master'
 alias gplr='git pull -r'
 alias gplro='git pull -r origin'
+alias gplrom='git pull -r origin master'
 alias gps='git push'
 alias gpso='git push origin'
+alias gpsom='git push origin master'
 alias gr='git rebase'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
@@ -44,8 +48,16 @@ gcam() {
     git commit -am "$*"
 }
 
+gcam-a() {
+    git commit -am "$*" --amend
+}
+
 gcm() {
     git commit -m "$*"
+}
+
+gcm-a() {
+    git commit -m "$*" --amend
 }
 
 # add a path to $PATH if it's not already in there and the directory exists
