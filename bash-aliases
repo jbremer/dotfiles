@@ -4,6 +4,7 @@ alias box='ssh skier@box.haxx.in'
 alias box2='ssh skier@nala.villavu.com -p54322'
 alias ls='ls --color=always'
 alias rvim='vim -R -'
+alias srvim='sort | uniq -c | sort | vim -R -'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
@@ -27,6 +28,8 @@ alias gbd='git branch -D'
 alias gc='git commit'
 alias gch='git checkout'
 alias gchb='git checkout -b'
+alias gchd='git checkout development'
+alias gchm='git checkout master'
 alias gm='git merge'
 alias gmt='git mergetool'
 alias sps='git stash && git pull -r && git stash pop'
@@ -44,20 +47,24 @@ alias gr='git rebase'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
 
-gcam() {
-    git commit -am "$*"
+pause() {
+    echo
+    (for i in {0..5}; do sleep 1 ; echo -n . ; done) &
+    read -p "$*" -t 5
 }
 
-gcam-a() {
-    git commit -am "$*" --amend
+gcam() {
+    git commit -am "$*" || {
+        pause Nothing to commit, going to --amend now.
+        git commit -am "$*" --amend
+    }
 }
 
 gcm() {
-    git commit -m "$*"
-}
-
-gcm-a() {
-    git commit -m "$*" --amend
+    git commit -m "$*" || {
+        pause Nothing to commit, going to --amend now.
+        git commit -m "$*" --amend
+    }
 }
 
 # add a path to $PATH if it's not already in there and the directory exists
