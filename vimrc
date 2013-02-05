@@ -5,6 +5,9 @@ set nocompatible        " We dont support Vi compatibility
 let g:syntastic_python_checker = 'flake8'
 let g:syntastic_python_flake8_exe = 'python -m flake8.run'
 
+" ignore error about not using whitespace around certain operators
+let g:syntastic_python_checker_args = '--ignore=E225,E226'
+
 " set the leader key for splice.vim as comma
 let g:splice_leader = ","
 
