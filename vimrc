@@ -11,6 +11,9 @@ let g:splice_leader = ","
 " pydoc path for python_pydoc.vim
 let g:pydoc_cmd = 'python -m pydoc'
 
+" add php to the MatchTagAlways list
+let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'jinja': 1, 'php': 1}
+
 " force reloading after pathogen has loaded
 filetype off
 call pathogen#infect()
