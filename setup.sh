@@ -72,7 +72,4 @@ else
     $assign_dir "$PWD/vimfiles" ~/.vim
 fi
 
-echo '[x] compiling the git-ps1 utility'
-gcc git-ps1.c -o ~/.git-ps1
-
 echo '[x] initialized successfully'
