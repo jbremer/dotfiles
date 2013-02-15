@@ -173,3 +173,6 @@ nmap <leader>m :sp Makefile<CR>
 
 nnoremap <F5> :w<CR>:silent !make<CR>
 inoremap <F5> <ESC>:w<CR>:silent !make<CR>
+
+" google the function under the cursor for msdn using google
+nmap <leader>K :silent !cmd /c start http://google.com/search?q=msdn+<C-R><C-W><CR>
