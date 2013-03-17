@@ -10,6 +10,10 @@ alias ...='cd ../..'
 alias ....='cd ../../..'
 alias tmp='cd /tmp'
 
+ftrvim() {
+    vim -R -c 'set ft='$1 -
+}
+
 alias maek=make
 alias mkae=make
 alias amke=make
