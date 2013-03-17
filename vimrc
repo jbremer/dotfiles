@@ -176,3 +176,27 @@ inoremap <F5> <ESC>:w<CR>:silent !make<CR>
 
 " google the function under the cursor for msdn using google
 nmap <leader>K :silent !cmd /c start http://google.com/search?q=msdn+<C-R><C-W><CR>
+
+" set spell checking on
+set spell
+set spelllang=en
+
+" Spell Check
+let g:spell_curlang = 0
+let g:spell_langlist = ["nospell", "nl", "en"]
+
+function! ToggleSpell()
+    let g:spell_curlang = g:spell_curlang + 1
+    if g:spell_curlang >= len(g:spell_langlist)
+        let g:spell_curlang = 0
+    endif
+    if g:spell_curlang == 0
+        setlocal nospell
+    else
+        let s:curlang = g:spell_langlist[g:spell_curlang]
+        execute "setlocal spell spelllang=".s:curlang
+    endif
+    echo "spell checking language:" g:spell_langlist[g:spell_curlang]
+endfunction
+
+nmap <silent> <F7> :call ToggleSpell()<CR>
