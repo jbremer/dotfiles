@@ -171,8 +171,9 @@ nmap <leader>th :TOhtml<CR>
 " <leader>m opens the Makefile in a split
 nmap <leader>m :sp Makefile<CR>
 
-nnoremap <F5> :w<CR>:silent !make<CR>
-inoremap <F5> <ESC>:w<CR>:silent !make<CR>
+" :update saves only if there were changes
+nnoremap <F5> :update<CR>:silent !make<CR>
+inoremap <F5> <ESC>:update<CR>:silent !make<CR>
 
 " google the function under the cursor for msdn using google
 nmap <leader>K :silent !cmd /c start http://google.com/search?q=msdn+<C-R><C-W><CR>
@@ -200,3 +201,6 @@ function! ToggleSpell()
 endfunction
 
 nmap <silent> <F7> :call ToggleSpell()<CR>
+
+" toggle nerd tree
+nmap <C-n> :NERDTreeToggle<CR>

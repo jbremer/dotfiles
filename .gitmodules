@@ -34,3 +34,6 @@
 [submodule "vimfiles/bundle/MatchTagAlways"]
 	path = vimfiles/bundle/MatchTagAlways
 	url = https://github.com/Valloric/MatchTagAlways
+[submodule "vimfiles/bundle/nerdtree"]
+	path = vimfiles/bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git

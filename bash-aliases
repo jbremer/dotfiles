@@ -18,6 +18,7 @@ alias amek=make
 alias mk=make
 alias mkc='make -C'
 alias mc='make clean'
+alias mt='make test'
 
 # git shortcuts
 alias ga='git add'
