@@ -99,14 +99,18 @@ fi
 
 if [ "$OS" == "Windows_NT" ]; then
     # default installation paths
-    alias vim="'$PROGRAMFILES/Vim/vim73/gvim.exe'"
+    export GVIM="/c/ProgFiles86/Vim/vim73/gvim.exe"
     alias py26='/c/Python26/python.exe'
-    alias putty="'$PROGRAMFILES/putty.exe'"
+    alias putty="/c/ProgFiles86/putty.exe"
     alias telnet='putty -telnet'
     alias tig='/c/cygwin/bin/tig.exe'
 
     # add python27 to the path
     pathadd "/c/Python27"
+
+    vim() {
+        $GVIM $* &
+    }
 
     6p() { curl -s -F "content=<${1--}" -F ttl=604800 -w "%{redirect_url}\n" \
         -o /dev/null https://p.6core.net/ | putclip ; getclip ; }
