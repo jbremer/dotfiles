@@ -105,11 +105,14 @@ vmap <leader>Y "+yy
 nmap <leader>p "+p
 nmap <leader>P "+pp
 
+" whitelist of filetypes that should be stripped when saving
+let s:whitelist = ['c', 'cpp', 'python']
+
 " automatically convert all tabs to (four) whitespaces
-au BufWrite * :%retab
+au BufWrite * if index(s:whitelist, &ft) >= 0 | :%retab
 
 " automatically remove all trailing whitespaces
-au BufWrite * :%s/\s\+$//e
+au BufWrite * if index(s:whitelist, &ft) >= 0 | :%s/\s\+$//e
 
 " set a decent colorscheme
 colorscheme asu1dark
