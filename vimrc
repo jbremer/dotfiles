@@ -6,7 +6,7 @@ let g:syntastic_python_checker = 'flake8'
 let g:syntastic_python_flake8_exe = 'python -m flake8.run'
 
 " ignore error about not using whitespace around certain operators
-let g:syntastic_python_checker_args = '--ignore=E225,E226'
+let g:syntastic_python_checker_args = '--ignore=E225,E226,E302,E501'
 
 " set the leader key for splice.vim as comma
 let g:splice_leader = ","
@@ -106,13 +106,20 @@ nmap <leader>p "+p
 nmap <leader>P "+pp
 
 " whitelist of filetypes that should be stripped when saving
-let s:whitelist = ['c', 'cpp', 'python']
+let s:whitelist = ['c', 'cpp', 'python', 'tex', 'markdown', 'text']
+let s:rewrite_buf = 1
+
+function! s:NoRewrite()
+    let s:rewrite_buf = 0
+endfunction
+
+command! -nargs=0 NoRewrite call s:NoRewrite()
 
 " automatically convert all tabs to (four) whitespaces
-au BufWrite * if index(s:whitelist, &ft) >= 0 | :%retab
+au BufWrite * if index(s:whitelist, &ft) >= 0 && s:rewrite_buf | :%retab
 
 " automatically remove all trailing whitespaces
-au BufWrite * if index(s:whitelist, &ft) >= 0 | :%s/\s\+$//e
+au BufWrite * if index(s:whitelist, &ft) >= 0 && s:rewrite_buf | :%s/\s\+$//e
 
 " set a decent colorscheme
 colorscheme asu1dark
@@ -207,3 +214,8 @@ nmap <silent> <F7> :call ToggleSpell()<CR>
 
 " toggle nerd tree
 nmap <C-n> :NERDTreeToggle<CR>
+
+" html stuff
+if &ft == 'htmldjango'
+    set shiftwidth=2
+endif
