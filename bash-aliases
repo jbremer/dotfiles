@@ -163,7 +163,7 @@ p() {
 }
 
 # paste whatever is on the clipboard
-alias gp='getclip|p'
+alias gp='getclip -u|p'
 
 alias v=vim
 
