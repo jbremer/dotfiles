@@ -115,7 +115,7 @@ if [ "$OS" == "Windows_NT" ]; then
     vim() {
         # readonly stdin
         if [ -z "$*" ]; then
-            $GVIM -R -
+            cat -|$GVIM -R - &
         # normal usage
         else
             $GVIM $* &
