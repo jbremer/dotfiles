@@ -52,17 +52,8 @@ git config --global mergetool.splice.cmd \
     $vim' -f $BASE $LOCAL $REMOTE $MERGED -c SpliceInit'
 git config --global mergetool.splice.trustExitCode true
 
-# try to locate python binary
-if [ "$OS" == "Windows_NT" ]; then
-    python=/c/python27/python.exe
-else
-    python=/usr/bin/python
-fi
-
-echo '[x] building flake8'
-cd flake8
-$python setup.py install --user
-cd ..
+echo '[x] installing flake8'
+pip install flake8
 
 echo '[x] dropping all vimfiles'
 
