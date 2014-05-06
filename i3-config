@@ -113,6 +113,7 @@ bindsym $mod+Shift+0 move container to workspace 10
 bindsym Mod1+Tab focus right
 bindsym Mod1+Shift+Tab focus left
 bindsym $mod+x workspace back_and_forth
+bindsym Control+Mod1+l exec gnome-screensaver-command -l
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
