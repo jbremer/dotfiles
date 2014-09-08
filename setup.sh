@@ -11,6 +11,9 @@ else
 
     echo '[+] dropping .tmux.conf'
     $assign_file "$PWD/tmux-conf" ~/.tmux.conf
+
+    echo '[+] Installing various packages'
+    sudo apt-get install -y $(cat packages.txt)
 fi
 
 echo '[+] dropping .vimrc'
@@ -53,14 +56,17 @@ git config --global mergetool.splice.cmd \
 git config --global mergetool.splice.trustExitCode true
 
 echo '[x] installing flake8'
-pip install flake8
+sudo pip install flake8
 
 echo '[x] dropping all vimfiles'
+$assign_dir "$PWD/vimfiles" ~/.vim
 
-if [ "$OS" == "Windows_NT" ]; then
-    $assign_dir "$PWD/vimfiles" ~
-else
-    $assign_dir "$PWD/vimfiles" ~/.vim
-fi
+echo '[x] setting up i3'
+mkdir -p ~/.i3
+$assign_file "$PWD/i3-config" ~/.i3/config
+
+echo '[x] applying some configuration'
+# don't show the "Desktop" window when nautilus pops up
+gsettings set org.gnome.desktop.background show-desktop-icons false
 
 echo '[x] initialized successfully'

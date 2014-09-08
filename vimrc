@@ -17,6 +17,8 @@ let g:pydoc_cmd = 'python -m pydoc'
 " add php to the MatchTagAlways list
 let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'jinja': 1, 'php': 1}
 
+let g:ycm_confirm_extra_conf = 0
+
 " force reloading after pathogen has loaded
 filetype off
 call pathogen#infect()
@@ -40,7 +42,7 @@ set shiftround          " use multiple shiftwidth for '<' and '>'
 set backspace=indent,eol,start  " allow backspace over anything in insert mode
 set autoindent          " automatically indent
 set copyindent          " copy the current indentation on indent
-set number              " set line numbers
+" set number              " set line numbers
 set showmatch           " set show matching parenthesis
 set ignorecase          " ignore case when searching
 set smartcase           " search case-sensitive for mixalpha queries
@@ -56,7 +58,7 @@ set nolist              " dont show invisible characters by default
 set pastetoggle=<F2>    " toggle paste mode
 set mouse=a             " enable the mouse, if terminal supports that
 set fileformat=unix
-set fileformats=unix,dos,mac
+set fileformats=unix,mac
 
 set cc=80               " colorcolumn 80
 
@@ -78,8 +80,9 @@ set nobackup            " dont use backup files
 set noswapfile          " dont use a swap file
 
 set wildmenu            " bash-alike tab-completion
-set wildmode=list:full      " show a list when pressing tab
-set wildignore=*.pyc,*.class    " blacklisted file extensions
+set wildmode=list:full   " show a list when pressing tab
+ " blacklisted file extensions
+set wildignore=*.o,*.tar.gz,*.tgz,*.exe,*.pyc,*.class
 
 set visualbell          " dont beep
 set noerrorbells        " dont beep
@@ -106,7 +109,7 @@ nmap <leader>p "+p
 nmap <leader>P "+pp
 
 " whitelist of filetypes that should be stripped when saving
-let s:whitelist = ['c', 'cpp', 'python', 'tex', 'markdown', 'text']
+let s:whitelist = ['c', 'cpp', 'python', 'tex', 'markdown', 'text', 'rst', 'sh', 'dosini', 'dosbatch', 'asm']
 let s:rewrite_buf = 1
 
 function! s:NoRewrite()
@@ -128,7 +131,7 @@ colorscheme asu1dark
 inoremap # X<C-H>#
 
 " list all available files in the current directory for editing
-map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
+" map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
 
 if has("gui_win32")
     set guioptions -=m  " remove menu bar
@@ -140,7 +143,7 @@ if has("gui_win32")
     set guioptions -=b  " remove bottom scroll bar
 endif
 
-nnoremap <C-q> :call <SID>QuickfixToggle()<cr>
+" nnoremap <C-q> :call <SID>QuickfixToggle()<cr>
 
 let g:quickfix_is_open = 0
 
@@ -168,15 +171,15 @@ inoremap jj <Esc>
 vmap < <gv
 vmap > >gv
 
-" <leader>t toggles between .h and .c file, shortcut for a.vim
+" <leader>s toggles between .h and .c file, shortcut for a.vim
 " o for open in current window
 " s for open in new split
 " v for open in new vsplit
 " split with the html representation of this buffer
-nmap <leader>to :A<CR>
-nmap <leader>ts :AS<CR>
-nmap <leader>tv :AV<CR>
-nmap <leader>th :TOhtml<CR>
+nmap <leader>so :A<CR>
+nmap <leader>ss :AS<CR>
+nmap <leader>sv :AV<CR>
+nmap <leader>sh :TOhtml<CR>
 
 " <leader>m opens the Makefile in a split
 nmap <leader>m :sp Makefile<CR>
@@ -191,6 +194,7 @@ nmap <leader>K :silent !cmd /c start http://google.com/search?q=msdn+<C-R><C-W><
 " set spell checking on
 set spell
 set spelllang=en
+" set nospell
 
 " Spell Check
 let g:spell_curlang = 0
@@ -210,12 +214,28 @@ function! ToggleSpell()
     echo "spell checking language:" g:spell_langlist[g:spell_curlang]
 endfunction
 
+" change between no spelling checks, english, and dutch
 nmap <silent> <F7> :call ToggleSpell()<CR>
+
+" toggle paste mode
+let g:paste_mode = 0
+
+function! TogglePaste()
+    if g:paste_mode == 0
+        set paste
+        let g:paste_mode = 1
+    else
+        set nopaste
+        let g:paste_mode = 0
+    endif
+endfunction
+
+nmap <silent> <F12> :call TogglePaste()<CR>
 
 " toggle nerd tree
 nmap <C-n> :NERDTreeToggle<CR>
 
-" html stuff
-if &ft == 'htmldjango'
+" html and rst stuff
+if &ft == 'htmldjango' || &ft == 'rst'
     set shiftwidth=2
 endif

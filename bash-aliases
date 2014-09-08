@@ -1,20 +1,18 @@
+# https://github.com/wincent/Command-T/blob/master/doc/command-t.txt#L805-L816
+stty -ixon -ixoff
+
+alias g='cd ~/git'
 alias py=python
 alias ipy='ipython --pdb'
-alias l='ls -alF'
-alias ll='ls -alF|less'
-alias box='ssh skier@box.haxx.in'
-alias box2='ssh skier@nala.villavu.com -p54322'
-alias ls='ls --color=always'
 alias srvim='sort | uniq -c | sort | vim -R -'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias tmp='cd /tmp'
-
-alias maek=make
-alias mkae=make
-alias amke=make
-alias amek=make
+alias lll='ll|less'
+alias json='python -mjson.tool|pygmentize -l javascript'
+alias jsonl='python -mjson.tool|pygmentize -l javascript|less -R'
+alias mosh='LC_ALL=en_US.UTF-8 mosh'
 
 alias mk=make
 alias mkc='make -C'
@@ -33,6 +31,7 @@ alias gch='git checkout'
 alias gchb='git checkout -b'
 alias gchd='git checkout development'
 alias gchm='git checkout master'
+alias gfo='git fetch origin'
 alias gm='git merge'
 alias gmt='git mergetool'
 alias sps='git stash && git pull -r && git stash pop'
@@ -51,6 +50,8 @@ alias gr='git rebase'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
 alias ggrep='git grep'
+alias gss='git stash save'
+alias gsp='git stash pop'
 
 pause() {
     echo
@@ -98,6 +99,7 @@ else
     alias gd='git diff'
     alias gl='git log'
     alias gsh='git show'
+    alias ghs=gsh
     alias gst='git status'
 fi
 
@@ -131,15 +133,6 @@ if [ "$OS" == "Windows_NT" ]; then
     if [ -d /d/Git ]; then
         cd /d/Git
     fi
-else
-    # would be weird if this directory is not in $PATH, but oh well..
-    pathadd "/usr/bin"
-
-    # automaticall start irc if we are *not* inside tmux
-    alias irc='screen -UDr'
-    if [ -z "$TMUX" ]; then
-        screen -UDr
-    fi
 fi
 
 ftrvim() {
@@ -151,8 +144,8 @@ upload() {
     local bname=$(basename "$1")
     ssh skier@box.haxx.in "mkdir -p ~/public_html/$sha1"
     scp "$1" "skier@box.haxx.in:~/public_html/$sha1/$bname"
-    echo "http://box.haxx.in/~skier/$sha1/$bname" | putclip
-    getclip
+    echo "http://box.haxx.in/~skier/$sha1/$bname"
+    echo "http://box.haxx.in/~skier/$sha1/$bname" |xsel -i
 }
 
 p() {
@@ -163,7 +156,7 @@ p() {
 }
 
 # paste whatever is on the clipboard
-alias gp='getclip -u|p'
+alias gp='xsel -b|p'
 
 alias v=vim
 
