@@ -30,3 +30,11 @@ gimp
 python-all
 postgresql
 wine
+libboost-all-dev
+autoconf
+gnome-terminal
+cmake
+bison
+flex
+hexedit
+texlive

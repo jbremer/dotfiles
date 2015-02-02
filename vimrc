@@ -125,7 +125,7 @@ au BufWrite * if index(s:whitelist, &ft) >= 0 && s:rewrite_buf | :%retab
 au BufWrite * if index(s:whitelist, &ft) >= 0 && s:rewrite_buf | :%s/\s\+$//e
 
 " set a decent colorscheme
-colorscheme asu1dark
+colorscheme zenburn
 
 " don't go to the beginning of the line when inserting a hash (#) token
 inoremap # X<C-H>#
@@ -214,8 +214,13 @@ function! ToggleSpell()
     echo "spell checking language:" g:spell_langlist[g:spell_curlang]
 endfunction
 
+function! NoSpell()
+    setlocal nospell
+endfunction
+
 " change between no spelling checks, english, and dutch
 nmap <silent> <F7> :call ToggleSpell()<CR>
+nmap <silent> <F8> :call NoSpell()<CR>
 
 " toggle paste mode
 let g:paste_mode = 0
