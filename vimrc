@@ -8,6 +8,10 @@ let g:syntastic_python_flake8_exe = 'python -m flake8.run'
 " ignore error about not using whitespace around certain operators
 let g:syntastic_python_checker_args = '--ignore=E225,E226,E302,E501'
 
+" Python mode checkers
+" let g:pymode_lint_checkers = ['pylint', 'pep8', 'mccabe', 'pep257', 'pyflakes']
+" let g:pymode_lint_ignore = ''
+
 " set the leader key for splice.vim as comma
 let g:splice_leader = ","
 
@@ -19,20 +23,35 @@ let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'jinja': 1, 'php': 1}
 
 let g:ycm_confirm_extra_conf = 0
 
+" 1mb files are considered big
+let g:LargeFile = 1
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-Plugin 'gmarik/Vundle.vim'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'jnurmine/Zenburn'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'vim-scripts/gitignore'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'sjl/splice.vim'
+Plugin 'gmarik/Vundle.vim'                  " Vundle
+Plugin 'wincent/command-t'                  " <leader>t file browser
+Plugin 'jnurmine/Zenburn'                   " Colorscheme
+Plugin 'Valloric/YouCompleteMe'             " C/C++ auto-completion
+Plugin 'scrooloose/nerdtree'                " NERD Tree file browser
+Plugin 'scrooloose/syntastic'               " Static syntax checker
+Plugin 'vim-scripts/gitignore'              " Turn .gitignore into vim ignore
+Plugin 'tpope/vim-surround'                 " cs'\" etc
+Plugin 'tpope/vim-repeat'                   " Use . on some more stuff
+Plugin 'sjl/splice.vim'                     " Splice mergetool
+Plugin 'tpope/vim-speeddating'              " ^A and ^X on dates
+Plugin 'bogado/file-line'                   " Open a.py:42
+Plugin 'xolox/vim-misc'                     " Required for vim-easytags
+Plugin 'xolox/vim-easytags'                 " ctags wrapper
+" Plugin 'klen/python-mode'                 " Python enhancements
+" Plugin 'nathanaelkane/vim-indent-guides'  " Highlights indents
+Plugin 'LargeFile'                          " Large file support
+Plugin 'bling/vim-airline'                  " Status bar
+" Plugin 'majutsushi/tagbar'                " Display ctags information
+Plugin 'justinmk/vim-sneak'                 " Sneak motion thing (fab)
+Plugin 'tyru/open-browser.vim'              " Open URL in browser (gx)
+Plugin 'tommcdo/vim-exchange'               " Exchange two words or lines (cx)
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -102,12 +121,10 @@ set noerrorbells        " dont beep
 set cursorline
 highlight CursorLine cterm=bold
 
-" remap ';' to ':' for more awesomeness!
-nnoremap ; :
+" nnoremap ';' to ':' for more awesomeness!
+" nnoremap ; :
 
 map! <F1> <ESC>         " we dont want to accidently press F1
-
-nnoremap <leader>w <C-w>v<C-w>l " duplicate the current window
 
 nmap Y y$           " yank to the end of the line
 
@@ -170,6 +187,10 @@ function! s:QuickfixToggle()
     endif
 endfunction
 
+" ,w saves the current file
+nnoremap <leader>w :w<CR>
+nnoremap <leader>W :w!<CR>
+
 " ,q quickly quits the current buffer / window
 " ,Q quickly quits the current possibly unsaved buffer / window
 nnoremap <leader>q :q<CR>
@@ -198,9 +219,6 @@ nmap <leader>m :sp Makefile<CR>
 " :update saves only if there were changes
 nnoremap <F5> :update<CR>:silent !make<CR>
 inoremap <F5> <ESC>:update<CR>:silent !make<CR>
-
-" google the function under the cursor for msdn using google
-nmap <leader>K :silent !cmd /c start http://google.com/search?q=msdn+<C-R><C-W><CR>
 
 " set spell checking on
 set spell
@@ -249,7 +267,7 @@ endfunction
 nmap <silent> <F12> :call TogglePaste()<CR>
 
 " toggle nerd tree
-nmap <C-n> :NERDTreeToggle<CR>
+nmap <silent> <C-n> :NERDTreeToggle<CR>
 
 " html and rst stuff
 if &ft == 'htmldjango' || &ft == 'rst'
@@ -259,3 +277,23 @@ endif
 " goto implementation or declaration
 nnoremap <leader>jd :YcmCompleter GoTo<CR>
 nnoremap <leader>jt :YcmCompleter GetType<CR>
+
+" toggle the tagbar (ctags stuff)
+" nnoremap <silent> <C-M> :TagbarToggle<CR>
+
+" use f{char}{char} to search for the next occurrence of {char}{char}
+" replaces original f meaning
+nmap f <Plug>Sneak_s
+nmap F <Plug>Sneak_S
+xmap f <Plug>Sneak_s
+xmap F <Plug>Sneak_S
+omap f <Plug>Sneak_s
+omap F <Plug>Sneak_S
+
+" open word or url in browser with gx
+let g:netrw_nogx = 1 " disable netrw's gx mapping.
+nmap gx <Plug>(openbrowser-smart-search)
+vmap gx <Plug>(openbrowser-smart-search)
+
+" always show the status line by airline
+set laststatus=2
