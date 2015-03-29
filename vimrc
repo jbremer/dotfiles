@@ -52,6 +52,7 @@ Plugin 'bling/vim-airline'                  " Status bar
 Plugin 'justinmk/vim-sneak'                 " Sneak motion thing (fab)
 Plugin 'tyru/open-browser.vim'              " Open URL in browser (gx)
 Plugin 'tommcdo/vim-exchange'               " Exchange two words or lines (cx)
+Plugin 'vim-scripts/a.vim'                  " Open src/inc files
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
