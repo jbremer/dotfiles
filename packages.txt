@@ -41,3 +41,4 @@ texlive
 zsh
 openvpn
 python-dev
+vim-nox

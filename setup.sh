@@ -52,7 +52,8 @@ git config --global color.ui always
 git config --global color.diff always
 git config --global merge.tool splice
 git config --global mergetool.splice.cmd \
-    $vim' -f $BASE $LOCAL $REMOTE $MERGED -c SpliceInit'
+    $vim' -f $BASE $LOCAL $REMOTE $MERGED -c SpliceInit ' \
+    '-u ~/git/dotfiles/vimrc-splice'
 git config --global mergetool.splice.trustExitCode true
 
 echo '[x] installing flake8'
