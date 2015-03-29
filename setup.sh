@@ -69,4 +69,15 @@ echo '[x] applying some configuration'
 # don't show the "Desktop" window when nautilus pops up
 gsettings set org.gnome.desktop.background show-desktop-icons false
 
+# Disable Totem (Ubuntu Media Player) history.
+rm ~/.local/share/recently-used.xbel
+touch ~/.local/share/recently-used.xbel
+chmod 0 ~/.local/share/recently-used.xbel
+
+# Disable Recently Used.
+zeitgeist-daemon -q
+rm ~/.local/share/zeitgeist/activity.sqlite
+touch ~/.local/share/zeitgeist/activity.sqlite
+chmod 0 ~/.local/share/zeitgeist/activity.sqlite
+
 echo '[x] initialized successfully'

@@ -38,3 +38,6 @@ bison
 flex
 hexedit
 texlive
+zsh
+openvpn
+python-dev

@@ -166,12 +166,3 @@ p() {
 
 alias gp='xsel -b|p'
 alias v='TERM=xterm-256color vim'
-
-alias -s c=v
-alias -s h=v
-alias -s txt=v
-alias -s s=v
-alias -s asm=v
-alias -s py=v
-alias -s md=v
-alias -s rst=v

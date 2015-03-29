@@ -1,8 +1,8 @@
-set nocompatible        " We dont support Vi compatibility
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
 " ensure the flake8 module is used and it is being ran without having to
 " update the $PATH with anything special
-let g:syntastic_python_checker = 'flake8'
 let g:syntastic_python_flake8_exe = 'python -m flake8.run'
 
 " ignore error about not using whitespace around certain operators
@@ -19,13 +19,24 @@ let g:mta_filetypes = {'html': 1, 'xhtml': 1, 'xml': 1, 'jinja': 1, 'php': 1}
 
 let g:ycm_confirm_extra_conf = 0
 
-" force reloading after pathogen has loaded
-filetype off
-call pathogen#infect()
-call pathogen#helptags()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" enable indentation
-filetype plugin indent on
+Plugin 'gmarik/Vundle.vim'
+Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'jnurmine/Zenburn'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
+Plugin 'vim-scripts/gitignore'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'sjl/splice.vim'
+
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 " enable syntax highlighting
 syntax on
@@ -244,3 +255,7 @@ nmap <C-n> :NERDTreeToggle<CR>
 if &ft == 'htmldjango' || &ft == 'rst'
     set shiftwidth=2
 endif
+
+" goto implementation or declaration
+nnoremap <leader>jd :YcmCompleter GoTo<CR>
+nnoremap <leader>jt :YcmCompleter GetType<CR>
