@@ -43,3 +43,5 @@ openvpn
 python-dev
 vim-nox
 libpg-dev
+upx
+xbacklight
