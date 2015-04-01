@@ -42,3 +42,4 @@ zsh
 openvpn
 python-dev
 vim-nox
+libpg-dev
