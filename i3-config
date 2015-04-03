@@ -164,5 +164,9 @@ bindsym $mod+n move workspace to output down
 assign [class="VirtualBox" instance="Qt-subapplication"] 7
 
 # Increase & decrease brightness (keycodes obtained through xev).
-bindsym 0x1008ff02 exec xbacklight -inc 5
-bindsym 0x1008ff03 exec xbacklight -dec 5
+bindsym 0x1008ff02 exec xbacklight -inc 10
+bindsym 0x1008ff03 exec xbacklight -dec 10
+
+# Increase & decrease volume (keycodes obtained through xev).
+bindsym 0x1008ff11 exec amixer -D pulse -q sset Master 10%-
+bindsym 0x1008ff13 exec amixer -D pulse -q sset Master 10%+
