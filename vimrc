@@ -8,12 +8,17 @@ let g:syntastic_python_flake8_exe = 'python -m flake8.run'
 " ignore error about not using whitespace around certain operators
 let g:syntastic_python_flake8_args = '--ignore=E226,E302,E501'
 
+" https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+let g:ycm_autoclose_preview_window_after_completion=1
+
 " Python mode checkers
 " let g:pymode_lint_checkers = ['pylint', 'pep8', 'mccabe', 'pep257', 'pyflakes']
 " let g:pymode_lint_ignore = ''
 
-" set the leader key for splice.vim as comma
-let g:splice_leader = ","
+" Following shortcuts are taken from
+" http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+
+let mapleader = "\<Space>"
 
 " pydoc path for python_pydoc.vim
 let g:pydoc_cmd = 'python -m pydoc'
@@ -25,6 +30,20 @@ let g:ycm_confirm_extra_conf = 0
 
 " 1mb files are considered big
 let g:LargeFile = 1
+
+" ignore file extensions in NERDTree
+let NERDTreeIgnore=['\.pyc$', '\~$']
+
+" python with virtualenv support
+" https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -43,25 +62,26 @@ Plugin 'sjl/splice.vim'                     " Splice mergetool
 Plugin 'tpope/vim-speeddating'              " ^A and ^X on dates
 Plugin 'bogado/file-line'                   " Open a.py:42
 Plugin 'xolox/vim-misc'                     " Required for vim-easytags
-Plugin 'xolox/vim-easytags'                 " ctags wrapper
+" Plugin 'xolox/vim-easytags'                 " ctags wrapper
 " Plugin 'klen/python-mode'                 " Python enhancements
 " Plugin 'nathanaelkane/vim-indent-guides'  " Highlights indents
 Plugin 'LargeFile'                          " Large file support
-Plugin 'bling/vim-airline'                  " Status bar
+" Plugin 'bling/vim-airline'                  " Status bar
 " Plugin 'majutsushi/tagbar'                " Display ctags information
 Plugin 'justinmk/vim-sneak'                 " Sneak motion thing (fab)
 Plugin 'tyru/open-browser.vim'              " Open URL in browser (gx)
 Plugin 'tommcdo/vim-exchange'               " Exchange two words or lines (cx)
 Plugin 'vim-scripts/a.vim'                  " Open src/inc files
+Plugin 'hynek/vim-python-pep8-indent'       " PEP8 indentation
+Plugin 'terryma/vim-expand-region'          " region expanding, see further below
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " enable syntax highlighting
+let python_highlight_all=1
 syntax on
-
-let mapleader=","       " change mapleader
 
 set showmode            " show which mode we are currently in
 set nowrap              " dont wrap lines
@@ -93,12 +113,9 @@ set fileformats=unix,mac
 
 set cc=80               " colorcolumn 80
 
-" clear out search result highlights
-nnoremap <space> :noh<CR>
-
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim
-nnoremap / /\v
-vnoremap / /\v
+" nnoremap / /\v
+" vnoremap / /\v
 
 " editor layout
 set termencoding=utf-8
@@ -276,8 +293,7 @@ if &ft == 'htmldjango' || &ft == 'rst'
 endif
 
 " goto implementation or declaration
-nnoremap <leader>jd :YcmCompleter GoTo<CR>
-nnoremap <leader>jt :YcmCompleter GetType<CR>
+nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " toggle the tagbar (ctags stuff)
 " nnoremap <silent> <C-M> :TagbarToggle<CR>
@@ -298,3 +314,39 @@ vmap gx <Plug>(openbrowser-smart-search)
 
 " always show the status line by airline
 set laststatus=2
+
+" Following shortcuts are taken from
+" http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+
+" Hit v to select one character
+" Hit v again to expand selection to word
+" Hit v again to expand to paragraph
+" ...
+" Hit <C-v> go back to previous selection if I went too far
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" search things usual way using /something
+" hit cs, replace first match, and hit <Esc>
+" hit n.n.n.n.n. reviewing and replacing all matches
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+
+" automatically jump to end of text you pasted
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+
+" only use files defined by Git in ctrlp
+let g:ctrlp_use_caching = 0
+if executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor
+
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+else
+  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+  let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+    \ }
+endif

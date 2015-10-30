@@ -29,7 +29,6 @@ sqlite3
 gimp
 python-all
 postgresql
-wine
 libboost-all-dev
 autoconf
 gnome-terminal
@@ -45,3 +44,9 @@ vim-nox
 libpg-dev
 upx
 xbacklight
+scrot
+p7zip-full
+unrar
+libxml2-dev
+libxslt-dev
+libffi-dev
