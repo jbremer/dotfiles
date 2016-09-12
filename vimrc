@@ -10,6 +10,7 @@ let g:syntastic_python_flake8_args = '--ignore=E226,E302,E501'
 
 " https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
 let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_python_binary_path = '/usr/bin/python'
 
 " Python mode checkers
 " let g:pymode_lint_checkers = ['pylint', 'pep8', 'mccabe', 'pep257', 'pyflakes']
@@ -45,6 +46,9 @@ if 'VIRTUAL_ENV' in os.environ:
   execfile(activate_this, dict(__file__=activate_this))
 EOF
 
+" Force .md as markdown
+autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
@@ -74,10 +78,12 @@ Plugin 'tommcdo/vim-exchange'               " Exchange two words or lines (cx)
 Plugin 'vim-scripts/a.vim'                  " Open src/inc files
 Plugin 'hynek/vim-python-pep8-indent'       " PEP8 indentation
 Plugin 'terryma/vim-expand-region'          " region expanding, see further below
+Plugin 'SirVer/ultisnips'                   " required for youcompleteme
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 filetype plugin indent on    " required
+filetype plugin on
 
 " enable syntax highlighting
 let python_highlight_all=1
@@ -350,3 +356,7 @@ else
     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
     \ }
 endif
+
+" Open NERDTree when Vim startsup and no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
