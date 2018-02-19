@@ -148,6 +148,14 @@ gcm() {
     }
 }
 
+g() {
+    if git status 1>/dev/null 2>/dev/null; then
+        git grep $*
+    else
+        grep -r $*
+    fi
+}
+
 upload() {
     local sha1=$(sha1sum "$1"|cut -d' ' -f1|head -c16)
     local bname=$(basename "$1")
