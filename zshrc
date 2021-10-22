@@ -50,19 +50,16 @@ ZSH_THEME="robbyrussell"
 # User configuration
 
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:/usr/local/go/bin:/home/jbr/go/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+export EDITOR=vim
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -83,8 +80,6 @@ setopt no_share_history
 
 alias py=python
 alias ipy='ipython --pdb'
-alias json='python -mjson.tool|pygmentize -l javascript'
-alias jsonl='python -mjson.tool|pygmentize -l javascript|less -R'
 alias mosh='LC_ALL=en_US.UTF-8 mosh'
 alias mk=make
 alias mc='make clean'
@@ -100,27 +95,24 @@ alias gbd='git branch -D'
 alias gc='git commit'
 alias gch='git checkout'
 alias gchb='git checkout -b'
-alias gchd='git checkout development'
-alias gchm='git checkout master'
+alias gchm='git checkout main'
 alias gfo='git fetch origin'
 alias gm='git merge'
 alias gmt='git mergetool'
-alias sps='git stash && git pull -r && git stash pop'
 alias grh='git reset HEAD'
 alias grsh='git reset --soft HEAD~'
 alias gpl='git pull'
 alias gplo='git pull origin'
-alias gplom='git pull origin master'
+alias gplom='git pull origin main'
 alias gplr='git pull -r'
 alias gplro='git pull -r origin'
-alias gplrom='git pull -r origin master'
+alias gplrom='git pull -r origin main'
 alias gps='git push'
 alias gpso='git push origin'
-alias gpsom='git push origin master'
+alias gpsom='git push origin main'
 alias gr='git rebase'
 alias grc='git rebase --continue'
 alias gra='git rebase --abort'
-alias ggrep='git grep'
 alias gss='git stash save'
 alias gsp='git stash pop'
 
@@ -156,13 +148,32 @@ g() {
     fi
 }
 
+gi() {
+    if git status 1>/dev/null 2>/dev/null; then
+        git grep -i $*
+    else
+        grep -ir $*
+    fi
+}
+
 upload() {
     local sha1=$(sha1sum "$1"|cut -d' ' -f1|head -c16)
     local bname=$(basename "$1")
-    ssh jbr@cuckoo.sh "mkdir -p /var/www/cuckoo.sh/$sha1"
-    scp "$1" "jbr@cuckoo.sh:/var/www/cuckoo.sh/$sha1/$bname"
-    echo "http://cuckoo.sh/$sha1/$bname"
-    echo "http://cuckoo.sh/$sha1/$bname" |xsel -i
+    ssh jbr@cuckoo.sh "mkdir -p /var/www/cuckoo.sh/temp/$sha1"
+    scp "$1" "jbr@cuckoo.sh:/var/www/cuckoo.sh/temp/$sha1/$bname"
+    ssh jbr@cuckoo.sh "chmod o+r /var/www/cuckoo.sh/temp/$sha1/$bname"
+    echo "https://cuckoo.sh/temp/$sha1/$bname"
+    echo "https://cuckoo.sh/temp/$sha1/$bname" |xsel -i
+}
+
+upldev() {
+    local sha1=$(sha1sum "$1"|cut -d' ' -f1|head -c16)
+    local bname=$(basename "$1")
+    ssh root@hatching.dev "mkdir -p /var/www/hatching/temp/$sha1"
+    scp "$1" "root@hatching.dev:/var/www/hatching/temp/$sha1/$bname"
+    ssh root@hatching.dev "chmod o+r /var/www/hatching/temp/$sha1/$bname"
+    echo "https://hatching.dev/temp/$sha1/$bname"
+    echo "https://hatching.dev/temp/$sha1/$bname" |xsel -i
 }
 
 p() {
@@ -172,5 +183,26 @@ p() {
     rm -rf "$dir"
 }
 
+alias gfu="fu -d $'\x1b[36m--\x1b[m'"
+
 alias gp='xsel -b|p'
-alias v='TERM=xterm-256color vim'
+alias scr='sleep 1; scrot -s /tmp/screenshot.png; upload /tmp/screenshot.png'
+alias scrdev='sleep 1; scrot -s /tmp/screenshot.png; upldev /tmp/screenshot.png'
+
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Z' fancy-ctrl-z
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export HISTSIZE=1000000000
+export SAVEHIST=$HISTSIZE
+setopt EXTENDED_HISTORY
