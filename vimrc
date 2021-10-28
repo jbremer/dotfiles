@@ -1,6 +1,9 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+" https://github.com/numirias/security/blob/master/doc/2019-06-04_ace-vim-neovim.md
+set nomodeline
+
 " ensure the flake8 module is used and it is being ran without having to
 " update the $PATH with anything special
 let g:syntastic_python_flake8_exe = 'python -m flake8.run'
@@ -19,7 +22,7 @@ let g:ycm_python_binary_path = '/usr/bin/python'
 " Following shortcuts are taken from
 " http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
 
-let mapleader = "\<Space>"
+" let mapleader = "\<Space>"
 
 " pydoc path for python_pydoc.vim
 let g:pydoc_cmd = 'python -m pydoc'
@@ -32,19 +35,13 @@ let g:ycm_confirm_extra_conf = 0
 " 1mb files are considered big
 let g:LargeFile = 1
 
+" https://github.com/fatih/vim-go-tutorial
+let g:go_auto_type_info = 1
+let g:go_auto_sameids = 1
+set updatetime=100
+
 " ignore file extensions in NERDTree
 let NERDTreeIgnore=['\.pyc$', '\~$']
-
-" python with virtualenv support
-" https://realpython.com/blog/python/vim-and-python-a-match-made-in-heaven/
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
 
 " Force .md as markdown
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -54,31 +51,32 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 Plugin 'gmarik/Vundle.vim'                  " Vundle
-Plugin 'wincent/command-t'                  " <leader>t file browser
-Plugin 'jnurmine/Zenburn'                   " Colorscheme
-Plugin 'Valloric/YouCompleteMe'             " C/C++ auto-completion
+" Plugin 'wincent/command-t'                  " <leader>t file browser
+" Plugin 'jnurmine/Zenburn'                   " Colorscheme
+" Plugin 'Valloric/YouCompleteMe'             " C/C++ auto-completion
 Plugin 'scrooloose/nerdtree'                " NERD Tree file browser
 Plugin 'scrooloose/syntastic'               " Static syntax checker
-Plugin 'vim-scripts/gitignore'              " Turn .gitignore into vim ignore
+" Plugin 'vim-scripts/gitignore'              " Turn .gitignore into vim ignore
 Plugin 'tpope/vim-surround'                 " cs'\" etc
-Plugin 'tpope/vim-repeat'                   " Use . on some more stuff
-Plugin 'sjl/splice.vim'                     " Splice mergetool
-Plugin 'tpope/vim-speeddating'              " ^A and ^X on dates
-Plugin 'bogado/file-line'                   " Open a.py:42
-Plugin 'xolox/vim-misc'                     " Required for vim-easytags
+" Plugin 'tpope/vim-repeat'                   " Use . on some more stuff
+" Plugin 'sjl/splice.vim'                     " Splice mergetool
+" Plugin 'tpope/vim-speeddating'              " ^A and ^X on dates
+" Plugin 'bogado/file-line'                   " Open a.py:42
+" Plugin 'xolox/vim-misc'                     " Required for vim-easytags
 " Plugin 'xolox/vim-easytags'                 " ctags wrapper
 " Plugin 'klen/python-mode'                 " Python enhancements
 " Plugin 'nathanaelkane/vim-indent-guides'  " Highlights indents
-Plugin 'LargeFile'                          " Large file support
-" Plugin 'bling/vim-airline'                  " Status bar
+" Plugin 'LargeFile'                          " Large file support
+Plugin 'bling/vim-airline'                  " Status bar
 " Plugin 'majutsushi/tagbar'                " Display ctags information
-Plugin 'justinmk/vim-sneak'                 " Sneak motion thing (fab)
-Plugin 'tyru/open-browser.vim'              " Open URL in browser (gx)
-Plugin 'tommcdo/vim-exchange'               " Exchange two words or lines (cx)
+" Plugin 'justinmk/vim-sneak'                 " Sneak motion thing (fab)
+" Plugin 'tyru/open-browser.vim'              " Open URL in browser (gx)
+" Plugin 'tommcdo/vim-exchange'               " Exchange two words or lines (cx)
 Plugin 'vim-scripts/a.vim'                  " Open src/inc files
 Plugin 'hynek/vim-python-pep8-indent'       " PEP8 indentation
-Plugin 'terryma/vim-expand-region'          " region expanding, see further below
-Plugin 'SirVer/ultisnips'                   " required for youcompleteme
+" Plugin 'terryma/vim-expand-region'          " region expanding, see further below
+" Plugin 'SirVer/ultisnips'                   " required for youcompleteme
+Plugin 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -138,7 +136,7 @@ set wildmode=list:full   " show a list when pressing tab
  " blacklisted file extensions
 set wildignore=*.o,*.tar.gz,*.tgz,*.exe,*.pyc,*.class
 
-set visualbell          " dont beep
+set novisualbell          " dont beep
 set noerrorbells        " dont beep
 
 " make the current line bold
@@ -161,7 +159,7 @@ nmap <leader>p "+p
 nmap <leader>P "+pp
 
 " whitelist of filetypes that should be stripped when saving
-let s:whitelist = ['c', 'cpp', 'python', 'tex', 'markdown', 'text', 'rst', 'sh', 'dosini', 'dosbatch', 'asm']
+let s:whitelist = ['c', 'cpp', 'python', 'tex', 'markdown', 'text', 'rst', 'sh', 'dosini', 'dosbatch', 'asm', 'go']
 let s:rewrite_buf = 1
 
 function! s:NoRewrite()
@@ -177,10 +175,10 @@ au BufWrite * if index(s:whitelist, &ft) >= 0 && s:rewrite_buf | :%retab
 au BufWrite * if index(s:whitelist, &ft) >= 0 && s:rewrite_buf | :%s/\s\+$//e
 
 " set a decent colorscheme
-colorscheme zenburn
+" colorscheme zenburn
 
 " don't go to the beginning of the line when inserting a hash (#) token
-inoremap # X<C-H>#
+" inoremap # X<C-H>#
 
 " list all available files in the current directory for editing
 " map <leader>e :e <C-R>=expand("%:p:h")."/"<CR><CR>
@@ -212,13 +210,13 @@ function! s:QuickfixToggle()
 endfunction
 
 " ,w saves the current file
-nnoremap <leader>w :w<CR>
-nnoremap <leader>W :w!<CR>
+" nnoremap <leader>w :w<CR>
+" nnoremap <leader>W :w!<CR>
 
 " ,q quickly quits the current buffer / window
 " ,Q quickly quits the current possibly unsaved buffer / window
-nnoremap <leader>q :q<CR>
-nnoremap <leader>Q :q!<CR>
+" nnoremap <leader>q :q<CR>
+" nnoremap <leader>Q :q!<CR>
 
 " go from insert mode to normal mode using jj
 inoremap jj <Esc>
@@ -238,11 +236,13 @@ nmap <leader>sv :AV<CR>
 nmap <leader>sh :TOhtml<CR>
 
 " <leader>m opens the Makefile in a split
-nmap <leader>m :sp Makefile<CR>
+" nmap <leader>m :sp Makefile<CR>
 
 " :update saves only if there were changes
 nnoremap <F5> :update<CR>:silent !make<CR>
 inoremap <F5> <ESC>:update<CR>:silent !make<CR>
+
+nmap <leader>i :GoImports<CR>
 
 " set spell checking on
 set spell
@@ -299,24 +299,24 @@ if &ft == 'htmldjango' || &ft == 'rst'
 endif
 
 " goto implementation or declaration
-nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+" nnoremap <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 " toggle the tagbar (ctags stuff)
 " nnoremap <silent> <C-M> :TagbarToggle<CR>
 
 " use f{char}{char} to search for the next occurrence of {char}{char}
 " replaces original f meaning
-nmap f <Plug>Sneak_s
-nmap F <Plug>Sneak_S
-xmap f <Plug>Sneak_s
-xmap F <Plug>Sneak_S
-omap f <Plug>Sneak_s
-omap F <Plug>Sneak_S
+" nmap f <Plug>Sneak_s
+" nmap F <Plug>Sneak_S
+" xmap f <Plug>Sneak_s
+" xmap F <Plug>Sneak_S
+" omap f <Plug>Sneak_s
+" omap F <Plug>Sneak_S
 
 " open word or url in browser with gx
-let g:netrw_nogx = 1 " disable netrw's gx mapping.
-nmap gx <Plug>(openbrowser-smart-search)
-vmap gx <Plug>(openbrowser-smart-search)
+" let g:netrw_nogx = 1 " disable netrw's gx mapping.
+" nmap gx <Plug>(openbrowser-smart-search)
+" vmap gx <Plug>(openbrowser-smart-search)
 
 " always show the status line by airline
 set laststatus=2
@@ -329,15 +329,15 @@ set laststatus=2
 " Hit v again to expand to paragraph
 " ...
 " Hit <C-v> go back to previous selection if I went too far
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
+" vmap v <Plug>(expand_region_expand)
+" vmap <C-v> <Plug>(expand_region_shrink)
 
 " search things usual way using /something
 " hit cs, replace first match, and hit <Esc>
 " hit n.n.n.n.n. reviewing and replacing all matches
-vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
-omap s :normal vs<CR>
+" vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    " \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+" omap s :normal vs<CR>
 
 " automatically jump to end of text you pasted
 vnoremap <silent> y y`]
@@ -345,18 +345,24 @@ vnoremap <silent> p p`]
 nnoremap <silent> p p`]
 
 " only use files defined by Git in ctrlp
-let g:ctrlp_use_caching = 0
-if executable('ag')
-    set grepprg=ag\ --nogroup\ --nocolor
+" let g:ctrlp_use_caching = 0
+" if executable('ag')
+"     set grepprg=ag\ --nogroup\ --nocolor
+"
+"     let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" else
+"   let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
+"   let g:ctrlp_prompt_mappings = {
+"     \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
+"     \ }
+" endif
 
-    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-else
-  let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f']
-  let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<space>', '<cr>', '<2-LeftMouse>'],
-    \ }
-endif
-
-" Open NERDTree when Vim startsup and no files were specified
+" Open NERDTree when Vim starts up and no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" disable autocomplete by default
+let g:acp_EnableAtStartup = 0
+
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
